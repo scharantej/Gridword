@@ -1,0 +1,134 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Word Search Game</title>
+<link rel="stylesheet" href="word_search.css">
+<script src="drag_and_drop.js"></script>
+</head>
+<body>
+<h1>Word Search Game</h1>
+
+<div id="grid-container">
+<div class="grid-item" id="grid-item-1"></div>
+<div class="grid-item" id="grid-item-2"></div>
+<div class="grid-item" id="grid-item-3"></div>
+<div class="grid-item" id="grid-item-4"></div>
+<div class="grid-item" id="grid-item-5"></div>
+<div class="grid-item" id="grid-item-6"></div>
+<div class="grid-item" id="grid-item-7"></div>
+<div class="grid-item" id="grid-item-8"></div>
+<div class="grid-item" id="grid-item-9"></div>
+<div class="grid-item" id="grid-item-10"></div>
+<div class="grid-item" id="grid-item-11"></div>
+<div class="grid-item" id="grid-item-12"></div>
+<div class="grid-item" id="grid-item-13"></div>
+<div class="grid-item" id="grid-item-14"></div>
+<div class="grid-item" id="grid-item-15"></div>
+<div class="grid-item" id="grid-item-16"></div>
+</div>
+
+<div id="scoring-container">
+<h2>Score:</h2>
+<span id="score">0</span>
+</div>
+
+<div id="timer-container">
+<h2>Time Remaining:</h2>
+<span id="timer">60</span>
+</div>
+
+<div id="instructions">
+<h2>Instructions:</h2>
+<ol>
+<li>Drag and drop the letter tiles to form words.</li>
+<li>Words must be at least 3 letters long.</li>
+<li>Words can be formed in any direction, including diagonally.</li>
+<li>Each word you find will score you points.</li>
+<li>The game ends when all the words are found or the timer expires.</li>
+</ol>
+</div>
+</body>
+</html>
+
+
+### drag_and_drop.js
+
+javascript
+const gridItems = document.querySelectorAll('.grid-item');
+
+gridItems.forEach((gridItem) => {
+gridItem.addEventListener('dragstart', (event) => {
+event.dataTransfer.setData('text/plain', gridItem.id);
+});
+});
+
+const gridContainer = document.getElementById('grid-container');
+
+gridContainer.addEventListener('dragover', (event) => {
+event.preventDefault();
+});
+
+gridContainer.addEventListener('drop', (event) => {
+event.preventDefault();
+
+const gridItemId = event.dataTransfer.getData('text/plain');
+const gridItem = document.getElementById(gridItemId);
+
+gridContainer.appendChild(gridItem);
+});
+
+
+### word_search.css
+
+css
+body {
+font-family: Arial, sans-serif;
+}
+
+h1 {
+text-align: center;
+}
+
+#grid-container {
+display: grid;
+grid-template-columns: repeat(4, auto);
+grid-gap: 10px;
+margin: 20px auto;
+width: 400px;
+}
+
+.grid-item {
+width: 50px;
+height: 50px;
+border: 1px solid black;
+text-align: center;
+font-size: 24px;
+line-height: 50px;
+}
+
+#scoring-container {
+margin-top: 20px;
+}
+
+#score {
+font-size: 24px;
+}
+
+#timer-container {
+margin-top: 20px;
+}
+
+#timer {
+font-size: 24px;
+}
+
+#instructions {
+margin-top: 20px;
+}
+
+ol {
+padding-inline-start: 0;
+}
+
